@@ -6,7 +6,7 @@
 	"scripts": {
 		"compile": "tsc",
 		"postcompile": "cp -r src/locales dist",
-		"bg:start": "npm run prepare && pm2 start dist/index.js --name propertygram-bot",
+		"bg:start": "npm run prepare && pm2 start dist/index.js --name propertygram-bot -f",
 		"bg:restart": "npm run prepare && pm2 restart propertygram-bot",
 		"bg:logs": "pm2 logs telegram-bot --lines 1000 -f",
 		"start": "npm run compile && node .",
@@ -27,8 +27,7 @@
 		"debug": "^4.3.4",
 		"dotenv": "^16.0.1",
 		"grammy": "^1.10.1",
-		"mongodb": "^4.9.1",
-		"mongoose": "^8.0.3"
+		"mongodb": "^4.9.1"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^18.4.3",

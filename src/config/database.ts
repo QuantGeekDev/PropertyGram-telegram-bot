@@ -7,7 +7,7 @@ export async function connectToDb() {
 	const mongoDb = client.db();
 	const user = mongoDb.collection<User>("user");
 	const chat = mongoDb.collection<Chat>("chat");
-	const property = mongoDb.collection<Property>("property");
+	const property = mongoDb.collection<Property>("properties");
 	const database: Database = { user, chat, property };
 	return database;
 }
