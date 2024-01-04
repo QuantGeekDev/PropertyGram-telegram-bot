@@ -3,7 +3,6 @@
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "prettier",
-    "react",
     "import",
     "@typescript-eslint",
     "github",
@@ -22,5 +21,6 @@
     "arrow-parens": "off",
     "prettier/prettier": 2,
     "semi": "off"
-  }
+  },
+  "ignorePatterns":"commitlint.config.cjs"
 }
