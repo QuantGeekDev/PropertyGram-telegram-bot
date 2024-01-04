@@ -14,8 +14,8 @@ Intenteded to display real estate properties concisely via a Telegram Bot
 
 After cloning the repository, you can use the following npm scripts:
 
-- `compile`: Compiles the TypeScript files to JavaScript, placing the compiled files in the `build` directory.
-- `postcompile`: Copies the locales from the `src` directory to the `build` directory.
+- `compile`: Compiles the TypeScript files to JavaScript, placing the compiled files in the `dist` directory.
+- `postcompile`: Copies the locales from the `src` directory to the `dist` directory.
 - `bg:start`: Prepares the environment and starts the bot in the background using pm2.
 - `bg:restart`: Restarts the bot service.
 - `bg:logs`: Fetches logs for the bot, defaulting to the last 1000 lines.

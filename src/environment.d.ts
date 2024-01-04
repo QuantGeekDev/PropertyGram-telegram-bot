@@ -1,7 +1,7 @@
 export declare global {
 	namespace NodeJS {
 		interface ProcessEnv {
-			TOKEN: string
+			TELEGRAM_TOKEN: string
 			DB_CONNECTION_STRING: string
 		}
 	}
