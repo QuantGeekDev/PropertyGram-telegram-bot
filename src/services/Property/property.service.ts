@@ -1,4 +1,6 @@
+import { InputFile, type InputMediaPhoto } from "grammy/types";
 import type { Property } from "../../types/database";
+import { InputMediaBuilder } from "grammy";
 
 export const generatePropertyDescription = (property: Property): string => {
 	const {
@@ -16,4 +18,17 @@ export const generatePropertyDescription = (property: Property): string => {
 	}\n`;
 
 	return propertyDescription;
+};
+
+export const generatePropertyPhotoAlbum = (
+	albumUrls: string[]
+): InputMediaPhoto[] => {
+	const photoAlbum: InputMediaPhoto[] = [];
+
+	for (const photoUrl of albumUrls) {
+		const photo = InputMediaBuilder.photo(new InputFile(photoUrl));
+		photoAlbum.push(photo);
+	}
+
+	return photoAlbum;
 };
