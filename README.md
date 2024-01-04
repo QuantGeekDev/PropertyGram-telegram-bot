@@ -2,6 +2,10 @@
 
 Intenteded to display real estate properties concisely via a Telegram Bot
 
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=QuantGeekDev_PropertyGram-telegram-bot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=QuantGeekDev_PropertyGram-telegram-bot)
+
+
 ## Features
 
 - Built with TypeScript for static typing and enhanced code quality.
@@ -13,6 +17,7 @@ Intenteded to display real estate properties concisely via a Telegram Bot
 ## Usage
 
 After cloning the repository, you can use the following npm scripts:
+
 
 - `compile`: Compiles the TypeScript files to JavaScript, placing the compiled files in the `dist` directory.
 - `postcompile`: Copies the locales from the `src` directory to the `dist` directory.
