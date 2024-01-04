@@ -1,8 +1,6 @@
-# Built application
-build
-
-# Built dependencies
+DS_Store
+.vscode
+.idea
+dist
 node_modules
-
-# Sensitive data
 .env
