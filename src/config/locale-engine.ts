@@ -1,4 +1,4 @@
-import { I18n } from '@grammyjs/i18n'
+import { I18n } from '@grammyjs/i18n';
 
 export function initLocaleEngine(path: string, defaultLanguage = 'en') {
 	const i18n = new I18n({
@@ -6,6 +6,6 @@ export function initLocaleEngine(path: string, defaultLanguage = 'en') {
 		defaultLanguage: defaultLanguage,
 		defaultLanguageOnMissing: true,
 		useSession: true
-	})
-	return i18n
+	});
+	return i18n;
 }
