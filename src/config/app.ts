@@ -7,7 +7,7 @@ import { connectToDb } from './database.js'
 export async function startApp() {
 	try {
 		loadEnv()
-		validateEnv(['TOKEN', 'DB_CONNECTION_STRING'])
+		validateEnv(['TELEGRAM_TOKEN', 'DB_CONNECTION_STRING'])
 	} catch (error) {
 		console.error('Error occurred while loading environment:', error)
 		process.exit(1)
