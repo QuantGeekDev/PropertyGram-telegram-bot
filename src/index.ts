@@ -1,4 +1,8 @@
-import { startApp } from './config/app.js'
+import { startApp } from './config/app.js';
+import debugCreator from 'debug';
 
-await startApp()
-console.debug('App started')
+const debug = debugCreator('index:');
+
+debug('Starting App');
+startApp();
+debug('App started');
