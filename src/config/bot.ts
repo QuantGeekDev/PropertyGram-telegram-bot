@@ -31,7 +31,7 @@ function extendContext(bot: Bot, database: Database) {
 			});
 		}
 
-		ctx.entities = {
+		ctx.config = {
 			user: await getOrCreatePlayer({
 				db: database,
 				userId: ctx.from.id,
