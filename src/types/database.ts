@@ -29,4 +29,5 @@ export interface Chat {
 export interface Database {
 	user: Collection<User>;
 	chat: Collection<Chat>;
+	property: Collection<Property>;
 }
