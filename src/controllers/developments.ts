@@ -1,12 +1,12 @@
 import { Composer } from "grammy";
 import type { CustomContext } from "../types/context.js";
-import { developmentsMenu } from "../menus/developmentsMenu.js";
+import { ourDevelopmentsMenu } from "../menus/ourDevelopmentsMenu.js";
 
 export const developmentsController = new Composer<CustomContext>();
 developmentsController.callbackQuery("view-developments", async ctx => {
 	ctx.answerCallbackQuery();
 	await ctx.reply("Please select the development", {
-		reply_markup: developmentsMenu
+		reply_markup: ourDevelopmentsMenu
 	});
 });
 

@@ -1,6 +1,6 @@
 import { InlineKeyboard } from "grammy";
 
-export const developmentsMenu = new InlineKeyboard()
+export const ourDevelopmentsMenu = new InlineKeyboard()
 	.text(
 		"🏠 SaliSol Resort - Guardamar, Spain",
 		"view-development:salisol-resort"
