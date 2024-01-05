@@ -12,6 +12,7 @@ import type { Bot } from "../types/telegram.js";
 import { buildName, getOrCreatePlayer } from "../services/user.js";
 import { getOrCreateChat } from "../services/chat.js";
 import { propertiesController } from "../controllers/properties.js";
+import { fileIdController } from "../controllers/fileId.js";
 
 function extendContext(bot: Bot, database: Database) {
 	bot.use(async (ctx, next) => {
@@ -54,6 +55,7 @@ function setupControllers(bot: Bot) {
 	bot.use(startController);
 	bot.use(stopController);
 	bot.use(propertiesController);
+	bot.use(fileIdController);
 }
 
 export async function startBot(database: Database) {

@@ -11,7 +11,7 @@ export interface Property {
 	name: string;
 	price: number;
 	availability: boolean;
-	videoUrl: string;
+	videoFileId: string;
 	thumbnailUrl: string;
 	albumUrls: string[];
 	builtMetersSquared: number;

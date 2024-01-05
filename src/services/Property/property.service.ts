@@ -1,6 +1,6 @@
-import { InputFile, type InputMediaPhoto } from "grammy/types";
-import type { Property } from "../../types/database";
+import { type InputMediaPhoto } from "grammy/types";
 import { InputMediaBuilder } from "grammy";
+import type { Property } from "../../types/database.js";
 
 export const generatePropertyDescription = (property: Property): string => {
 	const {
@@ -13,7 +13,9 @@ export const generatePropertyDescription = (property: Property): string => {
 	} = property;
 
 	// Property description uses Telegram's Markdown V2
-	const propertyDescription = `*${collectionName}: ${name}*\nPlot Size:${plotMetersSquared}\nBuilt Meters:${builtMetersSquared}Price: ${price}${
+	const propertyDescription = `*🏠 ${collectionName}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
+		.toString()
+		.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}€${
 		availability ? "" : "Reserved"
 	}\n`;
 
@@ -26,7 +28,7 @@ export const generatePropertyPhotoAlbum = (
 	const photoAlbum: InputMediaPhoto[] = [];
 
 	for (const photoUrl of albumUrls) {
-		const photo = InputMediaBuilder.photo(new InputFile(photoUrl));
+		const photo = InputMediaBuilder.photo(photoUrl);
 		photoAlbum.push(photo);
 	}
 
