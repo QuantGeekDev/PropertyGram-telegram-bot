@@ -5,7 +5,7 @@ import type { Property } from "../../types/database.js";
 export const generatePropertyDescription = (property: Property): string => {
 	const {
 		name,
-		collectionName,
+		collection,
 		availability,
 		price,
 		plotMetersSquared,
@@ -13,7 +13,7 @@ export const generatePropertyDescription = (property: Property): string => {
 	} = property;
 
 	// Property description uses Telegram's Markdown V2
-	const propertyDescription = `*🏠 ${collectionName}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
+	const propertyDescription = `*🏠 ${collection}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
 		.toString()
 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}€${
 		availability ? "" : "Reserved"
