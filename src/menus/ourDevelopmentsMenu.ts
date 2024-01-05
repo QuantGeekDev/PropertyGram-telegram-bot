@@ -8,4 +8,6 @@ export const ourDevelopmentsMenu = new InlineKeyboard()
 	.row()
 	.text("🏔️ SaliSol Hills - Benidorm, Spain", "view-development:salisol-hills")
 	.row()
-	.text("⛳ SaliSol Golf - Benidorm, Spain", "view-development:salisol-golf");
+	.text("⛳ SaliSol Golf - Benidorm, Spain", "view-development:salisol-golf")
+	.row()
+	.text("🔙 Back", "start");
