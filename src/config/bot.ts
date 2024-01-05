@@ -39,7 +39,8 @@ function extendContext(bot: Bot, database: Database) {
 				userId: ctx.from.id,
 				name: buildName(ctx.from.first_name, ctx.from.last_name)
 			}),
-			chat
+			chat,
+			property: null
 		};
 
 		await next();
