@@ -2,17 +2,18 @@ import type { I18n } from "@grammyjs/i18n/dist/source/i18n.js";
 import { Bot as TelegramBot, session } from "grammy";
 
 import { resolvePath } from "../helpers/resolve-path.js";
-import { createReplyWithTextFunc } from "../services/context.js";
+import { createReplyWithTextFunc } from "../services/context.service.js";
 import type { CustomContext } from "../types/context.js";
 import type { Chat, Database } from "../types/database.js";
 import { initLocaleEngine } from "./locale-engine.js";
 import { startController } from "../controllers/start.js";
 import { stopController } from "../controllers/stop.js";
 import type { Bot } from "../types/telegram.js";
-import { buildName, getOrCreatePlayer } from "../services/user.js";
-import { getOrCreateChat } from "../services/chat.js";
+import { buildName, getOrCreatePlayer } from "../services/user.service.js";
+import { getOrCreateChat } from "../services/chat.service.js";
 import { propertiesController } from "../controllers/properties.js";
 import { fileIdController } from "../controllers/fileId.js";
+import { contactSalesController } from "../controllers/contactSales.js";
 
 function extendContext(bot: Bot, database: Database) {
 	bot.use(async (ctx, next) => {
@@ -38,7 +39,8 @@ function extendContext(bot: Bot, database: Database) {
 				userId: ctx.from.id,
 				name: buildName(ctx.from.first_name, ctx.from.last_name)
 			}),
-			chat
+			chat,
+			property: null
 		};
 
 		await next();
@@ -56,6 +58,7 @@ function setupControllers(bot: Bot) {
 	bot.use(stopController);
 	bot.use(propertiesController);
 	bot.use(fileIdController);
+	bot.use(contactSalesController);
 }
 
 export async function startBot(database: Database) {
