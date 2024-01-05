@@ -11,25 +11,28 @@ developmentsController.callbackQuery("view-developments", async ctx => {
 });
 
 developmentsController.callbackQuery(
-	"view-development:salisol-resort",
+	/^view-development:\s*(.+)$/,
 	async ctx => {
-		ctx.answerCallbackQuery();
-		await ctx.reply("SaliSol Resort Selected");
-	}
-);
+		const selectedDevelopment = ctx.match[1];
+		let developmentName: string;
+		switch (selectedDevelopment) {
+			case "salisol-resort":
+				developmentName = "SaliSol Resort";
+				break;
+			case "salisol-hills":
+				developmentName = "SaliSol Hills";
+				break;
+			case "salisol-golf":
+				developmentName = "SaliSol Golf";
+				break;
+			default:
+				throw new Error("Development not found");
+		}
 
-developmentsController.callbackQuery(
-	"view-development:salisol-hills",
-	async ctx => {
 		ctx.answerCallbackQuery();
-		await ctx.reply("SaliSol Hills Selected");
-	}
-);
 
-developmentsController.callbackQuery(
-	"view-development:salisol-golf",
-	async ctx => {
-		ctx.answerCallbackQuery();
-		await ctx.reply("SaliSol Golf Selected");
+		await ctx.db.development.findOne({ name: developmentName });
+
+		await ctx.reply(`${developmentName} selected`);
 	}
 );

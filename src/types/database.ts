@@ -21,6 +21,15 @@ export interface Property {
 	websiteUrl: string;
 }
 
+export interface DevelopmentFromDb {
+	_id: ObjectId;
+	name: string;
+	dropboxUrl: string;
+	googleMapsUrl: string;
+	presentationVideoFileId?: string;
+	phoneNumber: string;
+}
+
 export interface PropertyFromDb {
 	_id: ObjectId;
 	collection: "SaliSol Hills" | "SaliSol Resort" | "SaliSol Golf";
@@ -45,4 +54,5 @@ export interface Database {
 	user: Collection<User>;
 	chat: Collection<Chat>;
 	property: Collection<PropertyFromDb>;
+	development: Collection<DevelopmentFromDb>;
 }
