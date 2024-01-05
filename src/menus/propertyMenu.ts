@@ -1,17 +1,41 @@
 import { InlineKeyboard } from "grammy";
 
-export const fullPropertyControlKeyboard = new InlineKeyboard()
-	.text("« Previous Property", "previous-property")
-	.text("Next Property » ", "next-property")
-	.row()
-	.text("Contact me  about this property", "contact-sales");
+export const fullPropertyControlKeyboard = (
+	propertyId: string
+): InlineKeyboard => {
+	const keyboard = new InlineKeyboard()
+		.text("« Previous Property", "previous-property")
+		.text("Next Property » ", "next-property")
+		.row()
+		.text(
+			"📞 Contact me about this property",
+			`contact_property_${propertyId}`
+		);
+	return keyboard;
+};
 
-export const nextPropertyControlKeyboard = new InlineKeyboard()
-	.text("Next Property » ", "next-property")
-	.row()
-	.text("Contact me about this property", "contact-sales");
+export const nextPropertyControlKeyboard = (
+	propertyId: string
+): InlineKeyboard => {
+	const keyboard = new InlineKeyboard()
+		.text("Next Property » ", "next-property")
+		.row()
+		.text(
+			"📞 Contact me about this property",
+			`contact_property_${propertyId}`
+		);
+	return keyboard;
+};
 
-export const previousPropertyControlKeyboard = new InlineKeyboard()
-	.text("« Previous Property", "previous-property")
-	.row()
-	.text("Contact me about this property", "contact-sales");
+export const previousPropertyControlKeyboard = (
+	propertyId: string
+): InlineKeyboard => {
+	const keyboard = new InlineKeyboard()
+		.text("« Previous Property", "previous-property")
+		.row()
+		.text(
+			"📞 Contact me about this property",
+			`contact_property_${propertyId}`
+		);
+	return keyboard;
+};
