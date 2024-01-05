@@ -7,7 +7,7 @@ export interface User {
 
 export interface Property {
 	_id: string;
-	collectionName: "SaliSol Hills" | "SaliSol Resort" | "SaliSol Golf";
+	collection: "SaliSol Hills" | "SaliSol Resort" | "SaliSol Golf";
 	name: string;
 	price: number;
 	availability: boolean;

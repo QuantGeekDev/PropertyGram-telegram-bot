@@ -1,11 +1,16 @@
 import { type InputMediaPhoto } from "grammy/types";
 import { InputMediaBuilder } from "grammy";
 import type { Property } from "../../types/database.js";
+import {
+	fullPropertyControlKeyboard,
+	nextPropertyControlKeyboard,
+	previousPropertyControlKeyboard
+} from "../../menus/propertyMenu.js";
 
 export const generatePropertyDescription = (property: Property): string => {
 	const {
 		name,
-		collectionName,
+		collection,
 		availability,
 		price,
 		plotMetersSquared,
@@ -13,7 +18,7 @@ export const generatePropertyDescription = (property: Property): string => {
 	} = property;
 
 	// Property description uses Telegram's Markdown V2
-	const propertyDescription = `*🏠 ${collectionName}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
+	const propertyDescription = `*🏠 ${collection}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
 		.toString()
 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}€${
 		availability ? "" : "Reserved"
@@ -33,4 +38,30 @@ export const generatePropertyPhotoAlbum = (
 	}
 
 	return photoAlbum;
+};
+
+export const displayProperty = async (
+	ctx: CustomContext,
+	properties: Property[],
+	currentPropertyIndex: number
+) => {
+	const totalProperties = properties.length;
+	const currentProperty = properties[currentPropertyIndex];
+	const { videoFileId, albumUrls } = currentProperty;
+
+	const propertyDescription = generatePropertyDescription(currentProperty);
+	const propertyPhotoAlbum = generatePropertyPhotoAlbum(albumUrls);
+
+	await ctx.reply(`Property ${currentPropertyIndex + 1}/${totalProperties}`);
+	await ctx.reply(propertyDescription, { parse_mode: "MarkdownV2" });
+	await ctx.replyWithVideo(videoFileId);
+	await ctx.replyWithMediaGroup(propertyPhotoAlbum);
+	await ctx.reply(`Property ${currentPropertyIndex + 1}/${totalProperties}`, {
+		reply_markup:
+			currentPropertyIndex == 0
+				? nextPropertyControlKeyboard
+				: currentPropertyIndex + 1 < totalProperties
+				? fullPropertyControlKeyboard
+				: previousPropertyControlKeyboard
+	});
 };
