@@ -1,4 +1,4 @@
-import type { Chat, Database } from '../types/database.js';
+import type { Chat, Database } from "../types/database.js";
 
 async function createChat(args: {
 	db: Database;
@@ -23,7 +23,7 @@ export async function getOrCreateChat(args: {
 	const chat = await args.db.chat.findOneAndUpdate(
 		{ chatId: args.chatId },
 		{ $set: { title: args.title } },
-		{ returnDocument: 'after' }
+		{ returnDocument: "after" }
 	);
 
 	if (chat.ok && chat.value) {

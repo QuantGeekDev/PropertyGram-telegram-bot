@@ -1,16 +1,18 @@
-import type { I18n } from '@grammyjs/i18n/dist/source/i18n.js';
-import { Bot as TelegramBot, session } from 'grammy';
+import type { I18n } from "@grammyjs/i18n/dist/source/i18n.js";
+import { Bot as TelegramBot, session } from "grammy";
 
-import { resolvePath } from '../helpers/resolve-path.js';
-import { createReplyWithTextFunc } from '../services/context.js';
-import type { CustomContext } from '../types/context.js';
-import type { Chat, Database } from '../types/database.js';
-import { initLocaleEngine } from './locale-engine.js';
-import { startController } from '../controllers/start.js';
-import { stopController } from '../controllers/stop.js';
-import type { Bot } from '../types/telegram.js';
-import { buildName, getOrCreatePlayer } from '../services/user.js';
-import { getOrCreateChat } from '../services/chat.js';
+import { resolvePath } from "../helpers/resolve-path.js";
+import { createReplyWithTextFunc } from "../services/context.js";
+import type { CustomContext } from "../types/context.js";
+import type { Chat, Database } from "../types/database.js";
+import { initLocaleEngine } from "./locale-engine.js";
+import { startController } from "../controllers/start.js";
+import { stopController } from "../controllers/stop.js";
+import type { Bot } from "../types/telegram.js";
+import { buildName, getOrCreatePlayer } from "../services/user.js";
+import { getOrCreateChat } from "../services/chat.js";
+import { propertiesController } from "../controllers/properties.js";
+import { fileIdController } from "../controllers/fileId.js";
 
 function extendContext(bot: Bot, database: Database) {
 	bot.use(async (ctx, next) => {
@@ -22,7 +24,7 @@ function extendContext(bot: Bot, database: Database) {
 		ctx.db = database;
 
 		let chat: Chat | null = null;
-		if (ctx.chat.type !== 'private') {
+		if (ctx.chat.type !== "private") {
 			chat = await getOrCreateChat({
 				db: database,
 				chatId: ctx.chat.id,
@@ -30,7 +32,7 @@ function extendContext(bot: Bot, database: Database) {
 			});
 		}
 
-		ctx.entities = {
+		ctx.config = {
 			user: await getOrCreatePlayer({
 				db: database,
 				userId: ctx.from.id,
@@ -52,10 +54,12 @@ function setupMiddlewares(bot: Bot, localeEngine: I18n) {
 function setupControllers(bot: Bot) {
 	bot.use(startController);
 	bot.use(stopController);
+	bot.use(propertiesController);
+	bot.use(fileIdController);
 }
 
 export async function startBot(database: Database) {
-	const localesPath = resolvePath(import.meta.url, '../locales');
+	const localesPath = resolvePath(import.meta.url, "../locales");
 	const i18n = initLocaleEngine(localesPath);
 	const bot = new TelegramBot<CustomContext>(process.env.TELEGRAM_TOKEN);
 	extendContext(bot, database);

@@ -1,11 +1,10 @@
-import type { CustomContext, CustomContextMethods } from '../types/context.js';
+import type { CustomContext, CustomContextMethods } from "../types/context.js";
 
 export function createReplyWithTextFunc(
 	ctx: CustomContext
-): CustomContextMethods['text'] {
+): CustomContextMethods["text"] {
 	return (resourceKey, templateData, extra = {}) => {
-		extra.parse_mode = 'HTML';
-		extra.disable_web_page_preview = true;
+		extra.parse_mode = "HTML";
 		const text = ctx.i18n.t(resourceKey, templateData);
 		return ctx.reply(text, extra);
 	};

@@ -1,4 +1,4 @@
-import type { Database, User } from '../types/database.js';
+import type { Database, User } from "../types/database.js";
 
 export function buildName(firstName: string, lastName?: string) {
 	return lastName ? `${firstName} ${lastName}` : firstName;
@@ -27,7 +27,7 @@ export async function getOrCreatePlayer(args: {
 	const user = await args.db.user.findOneAndUpdate(
 		{ userId: args.userId },
 		{ $set: { name: args.name } },
-		{ returnDocument: 'after' }
+		{ returnDocument: "after" }
 	);
 
 	if (user.ok && user.value) {
