@@ -14,6 +14,7 @@ import { getOrCreateChat } from "../services/chat.service.js";
 import { propertiesController } from "../controllers/properties.js";
 import { fileIdController } from "../controllers/fileId.js";
 import { contactSalesController } from "../controllers/contactSales.js";
+import { developmentsController } from "../controllers/developments.js";
 
 function extendContext(bot: Bot, database: Database) {
 	bot.use(async (ctx, next) => {
@@ -59,6 +60,7 @@ function setupControllers(bot: Bot) {
 	bot.use(propertiesController);
 	bot.use(fileIdController);
 	bot.use(contactSalesController);
+	bot.use(developmentsController);
 }
 
 export async function startBot(database: Database) {
