@@ -4,7 +4,7 @@ import type { DevelopmentFromDb } from "../types/database";
 export const developerDetailMenuCreator = (
 	development: DevelopmentFromDb
 ): InlineKeyboard => {
-	const { name, googleMapsUrl, dropboxUrl, phoneNumber } = development;
+	const { name, googleMapsUrl, dropboxUrl } = development;
 	const developerDetailMenu = new InlineKeyboard()
 		.text("View Properties", `view-properties ${name}`)
 		.row()
@@ -14,7 +14,7 @@ export const developerDetailMenuCreator = (
 		.row()
 		.url("🖼️ View Dropbox", dropboxUrl)
 		.row()
-		.url("📞 Call Sales Team", `tel:${phoneNumber}`);
+		.text("🔙 Back", "view-developments");
 
 	return developerDetailMenu;
 };

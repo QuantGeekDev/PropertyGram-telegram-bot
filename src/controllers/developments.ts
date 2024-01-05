@@ -1,6 +1,7 @@
 import { Composer } from "grammy";
 import type { CustomContext } from "../types/context.js";
 import { ourDevelopmentsMenu } from "../menus/ourDevelopmentsMenu.js";
+import { developerDetailMenuCreator } from "../menus/developmentDetailMenu.js";
 
 export const developmentsController = new Composer<CustomContext>();
 developmentsController.callbackQuery("view-developments", async ctx => {
@@ -31,8 +32,15 @@ developmentsController.callbackQuery(
 
 		ctx.answerCallbackQuery();
 
-		await ctx.db.development.findOne({ name: developmentName });
-
-		await ctx.reply(`${developmentName} selected`);
+		const development = await ctx.db.development.findOne({
+			name: developmentName
+		});
+		if (!development) {
+			return;
+		}
+		const developmentKeyboard = developerDetailMenuCreator(development);
+		await ctx.reply(`*${developmentName}*`, {
+			reply_markup: developmentKeyboard
+		});
 	}
 );
