@@ -6,6 +6,7 @@ import {
 	nextPropertyControlKeyboard,
 	previousPropertyControlKeyboard
 } from "../../menus/propertyMenu.js";
+import type { CustomContext } from "../../types/context.js";
 
 export const generatePropertyDescription = (property: Property): string => {
 	const {
@@ -49,6 +50,15 @@ export const displayProperty = async (
 	const currentProperty = properties[currentPropertyIndex];
 	const { videoFileId, albumUrls } = currentProperty;
 
+	let controlKeyboard;
+	if (currentPropertyIndex == 0) {
+		controlKeyboard = nextPropertyControlKeyboard;
+	} else if (currentPropertyIndex + 1 < totalProperties) {
+		controlKeyboard = fullPropertyControlKeyboard;
+	} else {
+		controlKeyboard = previousPropertyControlKeyboard;
+	}
+
 	const propertyDescription = generatePropertyDescription(currentProperty);
 	const propertyPhotoAlbum = generatePropertyPhotoAlbum(albumUrls);
 
@@ -57,11 +67,6 @@ export const displayProperty = async (
 	await ctx.replyWithVideo(videoFileId);
 	await ctx.replyWithMediaGroup(propertyPhotoAlbum);
 	await ctx.reply(`Property ${currentPropertyIndex + 1}/${totalProperties}`, {
-		reply_markup:
-			currentPropertyIndex == 0
-				? nextPropertyControlKeyboard
-				: currentPropertyIndex + 1 < totalProperties
-				? fullPropertyControlKeyboard
-				: previousPropertyControlKeyboard
+		reply_markup: controlKeyboard
 	});
 };
