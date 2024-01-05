@@ -1,13 +1,15 @@
 import { Composer } from "grammy";
 import type { CustomContext } from "../types/context.js";
-import type { Property } from "../types/database.js";
+import type { PropertyFromDb } from "../types/database.js";
 import { displayProperty } from "../services/Property/property.service.js";
 
 export const propertiesController = new Composer<CustomContext>();
 let currentPropertyIndex = 0;
 
 propertiesController.command("properties", async ctx => {
-	const properties = (await ctx.db.property.find({}).toArray()) as Property[];
+	const properties = (await ctx.db.property
+		.find({})
+		.toArray()) as PropertyFromDb[];
 	await displayProperty(ctx, properties, currentPropertyIndex);
 
 	propertiesController.callbackQuery("next-property", async ctx => {

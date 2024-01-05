@@ -1,6 +1,6 @@
 import { type InputMediaPhoto } from "grammy/types";
 import { InputMediaBuilder } from "grammy";
-import type { Property } from "../../types/database.js";
+import type { PropertyFromDb } from "../../types/database.js";
 import {
 	fullPropertyControlKeyboard,
 	nextPropertyControlKeyboard,
@@ -8,7 +8,9 @@ import {
 } from "../../menus/propertyMenu.js";
 import type { CustomContext } from "../../types/context.js";
 
-export const generatePropertyDescription = (property: Property): string => {
+export const generatePropertyDescription = (
+	property: PropertyFromDb
+): string => {
 	const {
 		name,
 		collection,
@@ -43,23 +45,26 @@ export const generatePropertyPhotoAlbum = (
 
 export const displayProperty = async (
 	ctx: CustomContext,
-	properties: Property[],
+	properties: PropertyFromDb[],
 	currentPropertyIndex: number
 ) => {
 	const totalProperties = properties.length;
 	const currentProperty = properties[currentPropertyIndex];
 	const { videoFileId, albumUrls } = currentProperty;
+	const currentPropertyId = currentProperty._id.toString();
 
 	let controlKeyboard;
 	if (currentPropertyIndex == 0) {
-		controlKeyboard = nextPropertyControlKeyboard;
+		controlKeyboard = nextPropertyControlKeyboard(currentPropertyId);
 	} else if (currentPropertyIndex + 1 < totalProperties) {
-		controlKeyboard = fullPropertyControlKeyboard;
+		controlKeyboard = fullPropertyControlKeyboard(currentPropertyId);
 	} else {
-		controlKeyboard = previousPropertyControlKeyboard;
+		controlKeyboard = previousPropertyControlKeyboard(currentPropertyId);
 	}
 
-	const propertyDescription = generatePropertyDescription(currentProperty);
+	const propertyDescription = generatePropertyDescription(
+		currentProperty as PropertyFromDb
+	);
 	const propertyPhotoAlbum = generatePropertyPhotoAlbum(albumUrls);
 
 	await ctx.reply(`Property ${currentPropertyIndex + 1}/${totalProperties}`);
