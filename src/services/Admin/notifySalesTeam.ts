@@ -4,12 +4,14 @@ export const notifySalesTeam = (ctx: CustomContext) => {
 	const adminGroupId = process.env.ADMIN_GROUP_ID;
 	const userId = ctx.config.user.userId;
 	const userName = ctx.config.user.name;
-	const requestTimestamp = Date.now();
 	const propertyOfInterest = null;
-	ctx.api.sendMessage(
-		adminGroupId,
-		`A new client is requesting information:\nName: ${userName}\nUserID: ${userId}\nTime: ${requestTimestamp}\n${
-			propertyOfInterest ? `Interested in ${propertyOfInterest}` : ""
-		}}`
-	);
+	const userClickable = `[${userName}](tg://user?id=${userId})`;
+
+	const formattedNotificationMessage = `A new client is requesting information:\nName: ${userName}\nUser: @${userClickable}\n${
+		propertyOfInterest ? `Interested in ${propertyOfInterest}` : ""
+	}`;
+
+	ctx.api.sendMessage(adminGroupId, formattedNotificationMessage, {
+		parse_mode: "MarkdownV2"
+	});
 };
