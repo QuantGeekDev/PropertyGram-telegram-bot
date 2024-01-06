@@ -19,7 +19,7 @@ export const notifySalesTeam = async (
 
 	const formattedNotificationMessage = `A new client is requesting information:\nName: ${userName}\nUser: @${userClickable}\n${
 		propertyOfInterest
-			? `Interested in ${propertyOfInterest.collection} ${propertyOfInterest.name}`
+			? `Interested in ${propertyOfInterest.development} ${propertyOfInterest.name}`
 			: ""
 	}`;
 

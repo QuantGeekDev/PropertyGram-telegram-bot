@@ -30,9 +30,13 @@ export interface DevelopmentFromDb {
 	phoneNumber: string;
 }
 
+export type DevelopmentType =
+	| "SaliSol Hills"
+	| "SaliSol Resort"
+	| "SaliSol Golf";
 export interface PropertyFromDb {
 	_id: ObjectId;
-	collection: "SaliSol Hills" | "SaliSol Resort" | "SaliSol Golf";
+	development: DevelopmentType;
 	name: string;
 	price: number;
 	availability: boolean;
@@ -45,6 +49,7 @@ export interface PropertyFromDb {
 	telegramContactUrl: string;
 	websiteUrl: string;
 }
+
 export interface Chat {
 	chatId: number;
 	title: string;

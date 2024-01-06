@@ -40,7 +40,8 @@ developmentsController.callbackQuery(
 		}
 		const developmentKeyboard = developerDetailMenuCreator(development);
 		await ctx.reply(`*${developmentName}*`, {
-			reply_markup: developmentKeyboard
+			reply_markup: developmentKeyboard,
+			parse_mode: "MarkdownV2"
 		});
 	}
 );
