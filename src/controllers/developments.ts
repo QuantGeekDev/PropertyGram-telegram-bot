@@ -1,35 +1,47 @@
 import { Composer } from "grammy";
 import type { CustomContext } from "../types/context.js";
-import { developmentsMenu } from "../menus/developmentsMenu.js";
+import { ourDevelopmentsMenu } from "../menus/ourDevelopmentsMenu.js";
+import { developerDetailMenuCreator } from "../menus/developmentDetailMenu.js";
 
 export const developmentsController = new Composer<CustomContext>();
 developmentsController.callbackQuery("view-developments", async ctx => {
 	ctx.answerCallbackQuery();
 	await ctx.reply("Please select the development", {
-		reply_markup: developmentsMenu
+		reply_markup: ourDevelopmentsMenu
 	});
 });
 
 developmentsController.callbackQuery(
-	"view-development:salisol-resort",
+	/^view-development:\s*(.+)$/,
 	async ctx => {
-		ctx.answerCallbackQuery();
-		await ctx.reply("SaliSol Resort Selected");
-	}
-);
+		const selectedDevelopment = ctx.match[1];
+		let developmentName: string;
+		switch (selectedDevelopment) {
+			case "salisol-resort":
+				developmentName = "SaliSol Resort";
+				break;
+			case "salisol-hills":
+				developmentName = "SaliSol Hills";
+				break;
+			case "salisol-golf":
+				developmentName = "SaliSol Golf";
+				break;
+			default:
+				throw new Error("Development not found");
+		}
 
-developmentsController.callbackQuery(
-	"view-development:salisol-hills",
-	async ctx => {
 		ctx.answerCallbackQuery();
-		await ctx.reply("SaliSol Hills Selected");
-	}
-);
 
-developmentsController.callbackQuery(
-	"view-development:salisol-golf",
-	async ctx => {
-		ctx.answerCallbackQuery();
-		await ctx.reply("SaliSol Golf Selected");
+		const development = await ctx.db.development.findOne({
+			name: developmentName
+		});
+		if (!development) {
+			return;
+		}
+		const developmentKeyboard = developerDetailMenuCreator(development);
+		await ctx.reply(`*${developmentName}*`, {
+			reply_markup: developmentKeyboard,
+			parse_mode: "MarkdownV2"
+		});
 	}
 );

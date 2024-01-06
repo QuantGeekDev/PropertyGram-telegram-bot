@@ -7,10 +7,10 @@ export const fullPropertyControlKeyboard = (
 		.text("« Previous Property", "previous-property")
 		.text("Next Property » ", "next-property")
 		.row()
-		.text(
-			"📞 Contact me about this property",
-			`contact_property_${propertyId}`
-		);
+		.text("📞 Contact me about this property", `contact_property_${propertyId}`)
+		.row()
+		.text("🔙 Back", "view-developments");
+
 	return keyboard;
 };
 
@@ -20,10 +20,9 @@ export const nextPropertyControlKeyboard = (
 	const keyboard = new InlineKeyboard()
 		.text("Next Property » ", "next-property")
 		.row()
-		.text(
-			"📞 Contact me about this property",
-			`contact_property_${propertyId}`
-		);
+		.text("📞 Contact me about this property", `contact_property_${propertyId}`)
+		.row()
+		.text("🔙 Back", "view-developments");
 	return keyboard;
 };
 
@@ -33,9 +32,8 @@ export const previousPropertyControlKeyboard = (
 	const keyboard = new InlineKeyboard()
 		.text("« Previous Property", "previous-property")
 		.row()
-		.text(
-			"📞 Contact me about this property",
-			`contact_property_${propertyId}`
-		);
+		.text("📞 Contact me about this property", `contact_property_${propertyId}`)
+		.row()
+		.text("🔙 Back", "view-developments");
 	return keyboard;
 };

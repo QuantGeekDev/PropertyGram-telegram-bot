@@ -13,7 +13,7 @@ export const generatePropertyDescription = (
 ): string => {
 	const {
 		name,
-		collection,
+		development,
 		availability,
 		price,
 		plotMetersSquared,
@@ -21,7 +21,7 @@ export const generatePropertyDescription = (
 	} = property;
 
 	// Property description uses Telegram's Markdown V2
-	const propertyDescription = `*🏠 ${collection}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
+	const propertyDescription = `*🏠 ${development}: ${name}*\n\nPlot Size: ${plotMetersSquared}m2 \nBuilt Meters: ${builtMetersSquared}m2\nPrice: ${price
 		.toString()
 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}€${
 		availability ? "" : "Reserved"
@@ -54,7 +54,7 @@ export const displayProperty = async (
 	const currentPropertyId = currentProperty._id.toString();
 
 	let controlKeyboard;
-	if (currentPropertyIndex == 0) {
+	if (currentPropertyIndex == 0 && totalProperties > 1) {
 		controlKeyboard = nextPropertyControlKeyboard(currentPropertyId);
 	} else if (currentPropertyIndex + 1 < totalProperties) {
 		controlKeyboard = fullPropertyControlKeyboard(currentPropertyId);
@@ -72,6 +72,6 @@ export const displayProperty = async (
 	await ctx.replyWithVideo(videoFileId);
 	await ctx.replyWithMediaGroup(propertyPhotoAlbum);
 	await ctx.reply(`Property ${currentPropertyIndex + 1}/${totalProperties}`, {
-		reply_markup: controlKeyboard
+		reply_markup: controlKeyboard ?? undefined
 	});
 };
